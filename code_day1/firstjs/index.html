@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/app.css">
+        <title>First Javascript</title>
+    </head>
+    <body>
+        <h1>Webpage</h1>
+        
+        <section>
+            <div>
+                <form action="index.html" method="post">
+                    <p>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" placeholder="Type name here" required>
+                    </p>
+                    <p>
+                        <label for="hair_color">Hair Color</label>
+                        <input type="color" name="hairColor" placeholder="Type hair color here" required>
+                    </p>
+                    <p>
+                        <label for="age">Age</label>
+                        <input type="number" name="age" placeholder="Your age" required>
+                    </p>
+                    <p>
+                        <label for="birth_place">Place of Birth</label>
+                        <input type="text" name="birth_place" placeholder="Your place of birth" required>
+                    </p>
+                    <button type="submit" name=button>Submit</button>
+                </form>
+            </div>
+
+            <div class="details"></div>
+        </section>
+        
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/what-input.js"></script>
+        <script src="js/vendor/foundation.js"></script>
+        <script src="js/app.js"></script>
+
+        <script type="text/javascript">
+            document.querySelector('form').onsubmit = function(ev) {
+                
+                // prevent normal submit behavior
+                ev.preventDefault();
+
+                // assign variable `details` to our div.details dom node element
+                var details = document.querySelector('div.details');
+
+                // write out to the nodes inner html
+                details.innerHTML = 
+                    '<dl>' +
+                    
+                        '<lh>' + 'Person Details' + '</lh>' +
+
+                        '<li>' +
+                            '<dt>' + 'Name' + '</dt>' +
+                            '<dd>' + this.name.value + '</dd>' +
+                        '</li>' +
+                    
+                        '<li>' +
+                            '<dt>' + 'Hair Color' + '</dt>' +
+                            '<dd>' + this.hairColor.value + '</dd>' +
+                        '</li>' +
+
+                        '<li>' +
+                            '<dt>' + 'Age' + '</dt>' +
+                            '<dd>' + this.age.value + '</dd>' +
+                        '</li>' +
+
+                        '<li>' +
+                            '<dt>' + 'Birth Place' + '</dt>' +
+                            '<dd>' + this.birth_place.value + '</dd>' +
+                        '</li>' +
+
+                    '</dl>';
+            }
+        </script>
+
+    </body>
+</html>
