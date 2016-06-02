@@ -3,7 +3,7 @@ $(document).foundation();
 var Roster = {
 
     init: function() {
-        document.querySelector('form').onsumbit = this.addValuesToRoster;
+        document.querySelector('form').onsubmit = this.addValuesToRoster;
     },
 
     buildList: function(listValues) {
