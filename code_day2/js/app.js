@@ -3,13 +3,13 @@ $(document).foundation();
 var Roster = {
 
     init: function() {
-        document.querySelector('form').onsumbit = this.addValuesToRoster;
+        document.querySelector('form').onsubmit = this.addValuesToRoster;
     },
 
-    buildList: function(listValues) {
+    buildList: function(list) {
         var dl = document.createElement('dl');
-        dl.style.border = '1px solid #000000';
-        dl.appendChild(this.buildListItem('Name', listValues.name));
+        dl.id = 'dlid';
+        dl.appendChild(this.buildListItem('Name', list.name));
         return dl;
     },
 
@@ -17,6 +17,7 @@ var Roster = {
         var li = document.createElement('li');
         var dt = document.createElement('dt');
         var dd = document.createElement('dd');
+        li.id = def;
         dt.innerHTML = term;
         dd.innerHTML = def;
         li.appendChild(dt);
@@ -24,15 +25,30 @@ var Roster = {
         return li;
     },
 
+    buildDeleter: function(list) {
+        var button = document.createElement('button');
+        button.innerHTML = 'DELETE';
+        button.onclick = this.deleter(list);
+        return button;
+    },
+
+    deleter: function(list) {
+        var parent = document.getElementById('dlid');
+        var child = document.getElementById(list.name);
+        parent.removeChild(child);
+    },
+
     addValuesToRoster: function(ev) {
         ev.preventDefault();
-        var roster = document.querySelector('.details');
-        // Roster values object
-        var rosterValues = {
+        
+        // Grab the DOM element!
+        var details = document.querySelector('.details');
+        var formValues = {
             name: this.name.value,
         };
-
-        roster.appendChild(Roster.buildList(rosterValues));
+        
+        details.appendChild(Roster.buildList(formValues) + Roster.buildDeleter(formValues));
+     
     }
 };
 
