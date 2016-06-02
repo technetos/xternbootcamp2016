@@ -18,6 +18,10 @@ var RosterObject = {
         // Now get the list element to append item to.
         var list = document.querySelector('#studentList');
         list.appendChild(item);
+        // Reset the form
+        f.reset();
+        // Focus is now stuck on the form.
+        f.name.focus();
     },
     
     // Sets up event listeners.
