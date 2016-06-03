@@ -1,0 +1,24 @@
+# LOCAL STORAGE
+
+localstorage.getItem('name_of_property');
+
+to clear all
+localStorage.clear();
+
+WHAT CAN BE STORED:
+only strings
+
+therefore use:
+JSON.stringify(mydata);
+JSON.parse(myString);
+
+
+SYNTAX
+JSON
+{
+    "property":"data",
+    "property":"data",
+}
+
+RETURNS
+[{"property":"data","property":"data"}]
