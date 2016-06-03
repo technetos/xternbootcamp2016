@@ -63,7 +63,9 @@ var RosterObject = {
         var linkObject = {
             text: 'Top',
             func: function() {
-                item.parentNode.insertBefore(item, item.parentNode.firstChild);
+                if(item.parentNode.firstChild !== item) {
+                    item.parentNode.insertBefore(item, item.parentNode.firstChild);
+                }
             }
         }
         return this.buildLink(linkObject);
@@ -73,7 +75,9 @@ var RosterObject = {
         var linkObject = {
             text: 'Bottom',
             func: function() {
-                item.parentNode.appendChild(item);
+                if(item.parentNode.lastChild !== item) {
+                    item.parentNode.appendChild(item);
+                }
             }
         }
         return this.buildLink(linkObject);
@@ -83,6 +87,9 @@ var RosterObject = {
         
         // Create our list html element.
         var item = document.createElement('li');
+
+        var span = document.createElement('span');
+        span.innerText = studentName;
 
         // Our bottom link for moving a list entry to the bottom of the list.
         var bottomLink = this.bottomLink(item);
@@ -101,7 +108,9 @@ var RosterObject = {
 
         // Write the data passed in as the function
         // parameter to our list element.
-        item.innerText = studentName;
+        //item.innerText = studentName;
+
+        item.appendChild(span);
 
         // Append our delete link as a child node to our entry.
         item.appendChild(deleteLink);
