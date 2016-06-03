@@ -28,7 +28,9 @@ var RosterObject = {
         var linkObject = {
             text: 'Remove',
             // Call remove child from the parent node of item.
-            func: function() { item.parentElement.removeChild(item); }
+            func: function() {
+                item.parentNode.removeChild(item);
+            }
         }
         return this.buildLink(linkObject);
     },
@@ -57,31 +59,64 @@ var RosterObject = {
         return this.buildLink(linkObject);
     },
 
+    topLink: function(item) {
+        var linkObject = {
+            text: 'Top',
+            func: function() {
+                item.parentNode.insertBefore(item, item.parentNode.firstChild);
+            }
+        }
+        return this.buildLink(linkObject);
+    },
+
+    bottomLink: function(item) {
+        var linkObject = {
+            text: 'Bottom',
+            func: function() {
+                item.parentNode.appendChild(item);
+            }
+        }
+        return this.buildLink(linkObject);
+    },
+
     buildListItem: function(studentName) {
         
         // Create our list html element.
         var item = document.createElement('li');
-        
-        // Our delete link for deleting a list entry.
-        var deleteLink = this.deleteLink(item);
+
+        // Our bottom link for moving a list entry to the bottom of the list.
+        var bottomLink = this.bottomLink(item);
+
+        // Our top link for moving a list entry to the top of the list.
+        var topLink = this.topLink(item);
+
+        // Our down link for moving a list entry down one position.
+        var downLink = this.downLink(item);
 
         // Our up link for moving a list entry up one position.
         var upLink = this.upLink(item);
 
-        var downLink = this.downLink(item);
-        
+        // Our delete link for deleting a list entry.
+        var deleteLink = this.deleteLink(item);
+
         // Write the data passed in as the function
         // parameter to our list element.
         item.innerText = studentName;
 
-        // Append our delete link as a child node to our list.
+        // Append our delete link as a child node to our entry.
         item.appendChild(deleteLink);
         
-        // Append our up link as a child node to our list.
+        // Append our up link as a child node to our entry.
         item.appendChild(upLink);
 
-        // Append our down link as a child node of our list.
+        // Append our down link as a child node of our entry.
         item.appendChild(downLink);
+
+        // Append our top link as a child node of our entry.
+        item.appendChild(topLink);
+
+        // Append our bottom link as a child node of our entry.
+        item.appendChild(bottomLink);
 
         // Return our newly created html list element.
         return item;
