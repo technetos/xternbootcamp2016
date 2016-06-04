@@ -26,7 +26,7 @@ var App = {
         }
     },
     
-    buildListItem: function(entry) {
+    buildListFunctions: function(entry) {
         if(entry) {
             // Remove
             entry.appendChild(this.buildElement({
@@ -98,7 +98,7 @@ var App = {
         var formData = f.inputForm.value;
 
         // Create the list item.
-        var listItem = this.buildListItem(this.buildList(formData));
+        var listItem = this.buildListFunctions(this.buildList(formData));
 
         // Grab the unsorted list HTML element we wish to append child nodes to.
         var unsortedList = document.querySelector('#dynamic-unsorted-list');
