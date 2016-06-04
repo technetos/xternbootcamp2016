@@ -4,9 +4,9 @@ var App = {
     
     buildElement: function(options) {
         if(options) {
-            // Create the HTML element options.thing.
-            if(options.thing) {
-                var element = document.createElement(options.thing);
+            // Create the HTML element options.what.
+            if(options.what) {
+                var element = document.createElement(options.what);
                 
                 // Set the id attribute.
                 if(options.id) { element.setAttribute('id', options.id); }
@@ -23,21 +23,68 @@ var App = {
                 // Return the element.
                 return element;
             }
-        } else { return undefined; }
+        }
+    },
+    
+    buildListItem: function(entry) {
+        if(entry) {
+            // Remove
+            entry.appendChild(this.buildElement({
+                what:'a', id:'remove-link', href:'#', text:'Remove', func:function() {
+                    entry.parentNode.removeChild(entry);
+                }
+            }));
+            
+            // Up
+            entry.appendChild(this.buildElement({
+                what:'a', id:'up-link', href:'#', text:'Up', func:function() {
+                    if(entry.previousSibling) {
+                        entry.parentNode.insertBefore(entry, entry.previousSibling);
+                    }
+                }
+            }));
+
+            // Down
+            entry.appendChild(this.buildElement({
+                what:'a', id:'down-link', href:'#', text:'Down', func:function() {
+                    if(entry.nextSibling) {
+                        entry.parentNode.insertBefore(entry.nextSibling, entry);
+                    }
+                }
+            }));
+
+            // Top
+            entry.appendChild(this.buildElement({
+                what:'a', id:'top-link', href:'#', text:'Top', func:function() {
+                    if(entry.parentNode.firstChild !== entry) {
+                        entry.parentNode.insertBefore(entry, entry.parentNode.firstChild);
+                    }
+                }
+            }));
+
+            // Bottom
+            entry.appendChild(this.buildElement({
+                what:'a', id:'bottom-link', href:'#', text:'Bottom', func:function() {
+                    if(entry.parentNode.lastChild !== entry) {
+                        entry.parentNode.appendChild(entry);
+                    }
+                }
+            }));
+
+            return entry;
+        }
     },
 
-    buildEntry: function(entry) {
+    buildList: function(data) {
+        if(data) {
+            // Create the list element.
+            var li = this.buildElement({ what:'li' });
 
-        // Create the list element.
-        var listElement = this.buildElement({ thing:'li' });
+            // Append a span HTML element as a child of li.
+            li.appendChild(this.buildElement({ what:'span', id:'entryContents', text:data }));
 
-        // Create the span element.
-        var spanElement = this.buildElement({ thing:'span', id:'entryContents', text:entry });
-
-        // Append spanElement as a child of listElement.
-        listElement.appendChild(spanElement);
-
-        return listElement;
+            return li;
+        }
     },
 
     newEntry: function(event) {
@@ -48,16 +95,16 @@ var App = {
         var f = event.currentTarget;
 
         // Set the entryContents to the content of the form input.
-        var entryContents = f.inputForm.value;
+        var formData = f.inputForm.value;
 
-        // Create the list entry.
-        var entry = this.buildEntry(entryContents);
+        // Create the list item.
+        var listItem = this.buildListItem(this.buildList(formData));
 
         // Grab the unsorted list HTML element we wish to append child nodes to.
         var unsortedList = document.querySelector('#dynamic-unsorted-list');
 
-        // Prepend new entries to the unsorted list element.
-        unsortedList.insertBefore(entry, unsortedList.firstChild);
+        // Prepend new list items to the unsorted list element.
+        unsortedList.insertBefore(listItem, unsortedList.firstChild);
 
         // Clear the inputForm after each usage.
         f.reset();
