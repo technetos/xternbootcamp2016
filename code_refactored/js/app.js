@@ -26,56 +26,56 @@ var App = {
         }
     },
     
-    buildListFunctions: function(entry) {
-        if(entry) {
+    buildListItemFunctions: function(li) {
+        if(li) {
             // Remove
-            entry.appendChild(this.buildElement({
+            li.appendChild(this.buildElement({
                 what:'a', id:'remove-link', href:'#', text:'Remove', func:function() {
-                    entry.parentNode.removeChild(entry);
+                    li.parentNode.removeChild(li);
                 }
             }));
             
             // Up
-            entry.appendChild(this.buildElement({
+            li.appendChild(this.buildElement({
                 what:'a', id:'up-link', href:'#', text:'Up', func:function() {
-                    if(entry.previousSibling) {
-                        entry.parentNode.insertBefore(entry, entry.previousSibling);
+                    if(li.previousSibling) {
+                        li.parentNode.insertBefore(li, li.previousSibling);
                     }
                 }
             }));
 
             // Down
-            entry.appendChild(this.buildElement({
+            li.appendChild(this.buildElement({
                 what:'a', id:'down-link', href:'#', text:'Down', func:function() {
-                    if(entry.nextSibling) {
-                        entry.parentNode.insertBefore(entry.nextSibling, entry);
+                    if(li.nextSibling) {
+                        li.parentNode.insertBefore(li.nextSibling, li);
                     }
                 }
             }));
 
             // Top
-            entry.appendChild(this.buildElement({
+            li.appendChild(this.buildElement({
                 what:'a', id:'top-link', href:'#', text:'Top', func:function() {
-                    if(entry.parentNode.firstChild !== entry) {
-                        entry.parentNode.insertBefore(entry, entry.parentNode.firstChild);
+                    if(li.parentNode.firstChild !== li) {
+                        li.parentNode.insertBefore(li, li.parentNode.firstChild);
                     }
                 }
             }));
 
             // Bottom
-            entry.appendChild(this.buildElement({
+            li.appendChild(this.buildElement({
                 what:'a', id:'bottom-link', href:'#', text:'Bottom', func:function() {
-                    if(entry.parentNode.lastChild !== entry) {
-                        entry.parentNode.appendChild(entry);
+                    if(li.parentNode.lastChild !== li) {
+                        li.parentNode.appendChild(li);
                     }
                 }
             }));
 
-            return entry;
+            return li;
         }
     },
 
-    buildList: function(data) {
+    buildListItem: function(data) {
         if(data) {
             // Create the list element.
             var li = this.buildElement({ what:'li' });
@@ -98,7 +98,7 @@ var App = {
         var formData = f.inputForm.value;
 
         // Create the list item.
-        var listItem = this.buildListFunctions(this.buildList(formData));
+        var listItem = this.buildListItemFunctions(this.buildListItem(formData));
 
         // Grab the unsorted list HTML element we wish to append child nodes to.
         var unsortedList = document.querySelector('#dynamic-unsorted-list');
