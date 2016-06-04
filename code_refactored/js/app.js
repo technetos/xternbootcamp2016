@@ -54,10 +54,10 @@ var App = {
         var entry = this.buildEntry(entryContents);
 
         // Grab the unsorted list HTML element we wish to append child nodes to.
-        var list = document.querySelector('#dynamic-unsorted-list');
+        var unsortedList = document.querySelector('#dynamic-unsorted-list');
 
         // Prepend new entries to the unsorted list element.
-        list.insertBefore(entry, list.firstChild);
+        unsortedList.insertBefore(entry, unsortedList.firstChild);
 
         // Clear the inputForm after each usage.
         f.reset();
