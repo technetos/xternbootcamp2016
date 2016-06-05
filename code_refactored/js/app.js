@@ -71,6 +71,22 @@ var App = {
                 }
             }));
 
+            // Edit
+            li.appendChild(this.buildElement({
+                what:'a', id:'editable-link', href:'#', text:'Edit', func:function() {
+                    var span = li.querySelector('#entryContents');
+                    var spanModifierLink = span.parentNode.querySelector('#editable-link');
+                    if(span.contentEditable === 'true') {
+                        span.contentEditable = 'false';
+                        spanModifierLink.innerText = 'Edit';
+                    } else {
+                        span.contentEditable = 'true';
+                        spanModifierLink.innerText = 'Update';
+                        span.focus();
+                    }
+                }
+            }));
+
             return li;
         }
     },
@@ -94,7 +110,7 @@ var App = {
         // to grab the event objects data.
         var f = event.currentTarget;
 
-        // Set the entryContents to the content of the form input.
+        // Set the formData to the content of the form input.
         var formData = f.inputForm.value;
 
         // Create the list item.
