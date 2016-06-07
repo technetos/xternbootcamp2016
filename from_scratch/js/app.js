@@ -1,29 +1,39 @@
 var App = {
 
-    addMutants: function(mutant) {
-        var li = $('li.template')
-            .clone()
-            .removeClass('template')
-            .attr('data-id', mutant.id);
+    deleteMutant: function(id, li) {
+        $.ajax({
+            url: this.url + id,
+            method: 'delete',
+            success: function() {
+                if(li) {
+                    li.remove();
+                }
+            }
+        });
+    },
 
-        li.find('.mutant-name')
+    addMutants: function(mutant) {
+        var li = $("li.template")
+            .clone()
+            .removeClass("template")
+            .attr("data-id", mutant.id);
+
+        li.find(".mutant-name")
             .html(mutant.mutant_name);
 
-        $('#mutant-list').append(li);
+        $("#mutant-list").append(li);
     },
 
     processMutants: function(mutants) {
         $.each(mutants, function(i, mutant) {
-            // I have no idea how to do this without referencing
-            // the object by name
-            App.addMutants(mutant);
-        });
+            this.addMutants(mutant);
+        }.bind(this));
     },
 
     getMutants: function() {
         $.get({
             url: this.url,
-            success: this.processMutants,
+            success: this.processMutants.bind(this),
         });
     },
 
@@ -32,10 +42,21 @@ var App = {
         if(!/^.*\/$/.test(this.url))
             this.url = this.url + '/';
     },
+
+    setupEventHandlers: function() {
+        $("#mutant-list").on("click", "a.delete", function(ev) {
+            ev.preventDefault();
+            var li = $(ev.currentTarget).closest("li");
+            var id = li.data('id');
+            this.deleteMutant(id, li);
+        }.bind(this));
+    },
     
     init: function(url) {
         this.setupURL(url);
-        this.getMutants()
+        this.setupEventHandlers();
+        this.getMutants();
+
     },
 }
 
