@@ -93,5 +93,4 @@ var App = {
     },
 }
 
-App.init(
 App.init("https://mutant-school.herokuapp.com/api/v1/mutants");
