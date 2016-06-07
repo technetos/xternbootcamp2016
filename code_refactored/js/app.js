@@ -10,6 +10,9 @@ var App = {
                 
                 // Set the id attribute.
                 if(options.id) { element.setAttribute('id', options.id); }
+
+                // Set classname.
+                if(options.classname) { element.classname = options.classname; }
                 
                 // Set the inner text.
                 if(options.text) { element.innerText = options.text; }
@@ -28,16 +31,17 @@ var App = {
     
     buildListItemFunctions: function(li) {
         if(li) {
+
             // Remove
             li.appendChild(this.buildElement({
-                what:'a', id:'remove-link', href:'#', text:'Remove', func:function() {
+                what:'a', id:'remove-link', classname:'remove-link', href:'#', text:'Remove', func:function() {
                     li.parentNode.removeChild(li);
                 }
             }));
             
             // Up
             li.appendChild(this.buildElement({
-                what:'a', id:'up-link', href:'#', text:'Up', func:function() {
+                what:'a', id:'up-link', classname:'up-link', href:'#', text:'Up', func:function() {
                     if(li.previousSibling) {
                         li.parentNode.insertBefore(li, li.previousSibling);
                     }
@@ -46,7 +50,7 @@ var App = {
 
             // Down
             li.appendChild(this.buildElement({
-                what:'a', id:'down-link', href:'#', text:'Down', func:function() {
+                what:'a', id:'down-link', classname:'down-link', href:'#', text:'Down', func:function() {
                     if(li.nextSibling) {
                         li.parentNode.insertBefore(li.nextSibling, li);
                     }
@@ -55,7 +59,7 @@ var App = {
 
             // Top
             li.appendChild(this.buildElement({
-                what:'a', id:'top-link', href:'#', text:'Top', func:function() {
+                what:'a', id:'top-link', classname:'top-link', href:'#', text:'Top', func:function() {
                     if(li.parentNode.firstChild !== li) {
                         li.parentNode.insertBefore(li, li.parentNode.firstChild);
                     }
@@ -64,7 +68,7 @@ var App = {
 
             // Bottom
             li.appendChild(this.buildElement({
-                what:'a', id:'bottom-link', href:'#', text:'Bottom', func:function() {
+                what:'a', id:'bottom-link', classname:'bottom-link', href:'#', text:'Bottom', func:function() {
                     if(li.parentNode.lastChild !== li) {
                         li.parentNode.appendChild(li);
                     }
@@ -73,7 +77,7 @@ var App = {
 
             // Edit
             li.appendChild(this.buildElement({
-                what:'a', id:'editable-link', href:'#', text:'Edit', func:function() {
+                what:'a', id:'editable-link', classname:'editable-link', href:'#', text:'Edit', func:function() {
                     var span = li.querySelector('#entryContents');
                     var spanModifierLink = span.parentNode.querySelector('#editable-link');
                     if(span.contentEditable === 'true') {
@@ -84,6 +88,7 @@ var App = {
                         spanModifierLink.innerText = 'Update';
                         span.focus();
                     }
+
                 }
             }));
 
@@ -135,6 +140,7 @@ var App = {
 
     init: function() {
         this.setupEventListeners();
+
     },
 };
 
