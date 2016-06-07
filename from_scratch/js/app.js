@@ -25,8 +25,9 @@ var App = {
         $.ajax({
             url: this.url + id,
             method: "delete",
-            success: function() {
-                if(li) { li.remove(); }
+        }).done(function() {
+            if(li) {
+                li.remove();
             }
         });
     },
@@ -52,8 +53,7 @@ var App = {
     getMutants: function() {
         $.get({
             url: this.url,
-            success: this.processMutants.bind(this),
-        });
+        }).done(this.processMutants.bind(this));
     },
 
     setupURL: function(url) {
@@ -93,4 +93,5 @@ var App = {
     },
 }
 
+App.init(
 App.init("https://mutant-school.herokuapp.com/api/v1/mutants");
