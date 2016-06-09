@@ -6,20 +6,23 @@
         <title></title>
     </head>
     <body>
-        <h1>MUTANTS</h1>
-        <div class="row">
-            <ul id="mutant-list">
-                <li class="template">
-                    <span class="mutant-name"></span>
+        <!-- generalize the ids -->
+        <form class="mutant-add-form">
+            <input type="text" name="mutantName" placeholder=">">
+            <button type="submit">Add</button>
+        </form>
+        <form class="mutant-update-form">
+            <input type="text" name="mutantName" placeholder=">">
+            <button type="submit">Update</button>
+        </form>
+        <ul id="mutant-list">
+            <li class="template">
+                <span class="mutant-name"></span>
                     <a href="#">(delete)</a>
                     <a href="#">(edit)</a>
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
         <script src="js/jquery-2.2.4.min.js"></script>
-        <!-- <script src="js/add_entry.js"></script> -->
-        <!-- <script src="js/remove_entry.js"></script> -->
-        <!-- <script src="js/update_list.js"></script> -->
         <script src="js/app.js"></script>
     </body>
 </html>
